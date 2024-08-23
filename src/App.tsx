@@ -99,7 +99,7 @@ function App() {
   /* To allow immediate delete of post to be edited */
   const [editCount, seteditCount] = useState(0);
 
-  function editPost(item, index) {
+  function editPost(item: { content: SetStateAction<string> }, index: any) {
     seteditCount(1);
     console.log(editCount);
     setdeleteElement([item, index]);

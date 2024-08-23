@@ -9,13 +9,47 @@ import { Key, MouseEventHandler } from "react";
 import plus from "./images/icon-plus.svg";
 import minus from "./images/icon-minus.svg";
 
-function Comment(props) {
+function Comment(props: {
+  seteditingPostValue: (arg0: any) => void;
+  importedData: {
+    comments: {
+      user: { image: any; username: any };
+      createdAt: any;
+      content: any;
+      score: any;
+      image: any;
+      replies: any[];
+    }[];
+  };
+  allowNewPost: (arg0: number) => void;
+  setclickedReplyIndex: (arg0: any) => void;
+  setNumber: (arg0: any) => void;
+  setdatacount: (arg0: number) => void;
+  datacount: number;
+  setdeleteElement: (arg0: any[]) => void;
+  editPost: (
+    arg0: {
+      user: { image: any; username: any };
+      createdAt: any;
+      content: any;
+      score: any;
+      image: any;
+      replies: any[];
+    },
+    arg1: any
+  ) => void;
+  sendReply: (arg0: any) => void;
+  setScore: (arg0: any) => void;
+  deletePost: any;
+  editingPostValue: string | number | readonly string[];
+  sendNewPost: any;
+}) {
   function handleEditUpdate(event: { target: { value: any } }) {
     props.seteditingPostValue(event.target.value);
   }
 
   return (
-    <div className="App  bg-SCLightgray py-6 px-5 ">
+    <div className="App md:px-32 xl:px-80 bg-SCLightgray py-6 px-5 ">
       {/* Visible on loaded */}
       <div className="flex flex-col gap-4">
         {props.importedData.comments.map(
@@ -86,7 +120,7 @@ function Comment(props) {
               )}
               {/* Replies to the post  and editing of post*/}
               {item.replies.length > 0 && (
-                <div className=" mt-4 pl-4 border-l border-SCGrayishBlue flex flex-col gap-4">
+                <div className=" mt-4 lg:ml-8 lg:pl-7 pl-4 border-l border-SCGrayishBlue flex flex-col gap-4">
                   {item.replies.map((element, eindex) => (
                     <div key={eindex} className="">
                       <Post
@@ -117,7 +151,7 @@ function Comment(props) {
                           deleteComment?.classList.add("flex");
                         }}
                         editPost={() => {
-                          props.editPost();
+                          props.editPost(element, eindex);
                           props.deletePost();
                         }}
                       />
